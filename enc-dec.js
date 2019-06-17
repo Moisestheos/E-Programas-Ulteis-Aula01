@@ -15,8 +15,7 @@ let uTF8Decode = (string) => {
     const decodeString = string.replace(/[\u00e0-\u00ef][\u0080-\u00bf][\u0080-\u00bf]/g, (c) => {
         var cc = ((c.charCodeAt(0) & 0x0f) << 12) | ((c.charCodeAt(1) & 0x3f) << 6) | (c.charCodeAt(2) & 0x3f);
         return String.fromCharCode(cc);
-    }
-    ).replace(/[\u00c0-\u00df][\u0080-\u00bf]/g, (c) => {
+    }).replace(/[\u00c0-\u00df][\u0080-\u00bf]/g, (c) => {
         var cc = (c.charCodeAt(0) & 0x1f) << 6 | c.charCodeAt(1) & 0x3f;
         return String.fromCharCode(cc);
     });
