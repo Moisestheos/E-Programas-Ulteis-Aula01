@@ -1,4 +1,4 @@
-let utf8Encode = (string) => {
+let uTF8Encode = (string) => {
     if (typeof string != 'string') throw new TypeError('Parametro informado não é uma string');
     const utf8String = string.replace(/[\u0080-\u07ff]/g, c => {
         var cc = c.charCodeAt(0);
@@ -12,15 +12,15 @@ let utf8Encode = (string) => {
 
 let uTF8Decode = (string) => {
     if (typeof string != 'string') throw new TypeError('Parametro informado não é uma string');
-    const decodeString = string.replace(/[\u00e0-\u00ef][\u0080-\u00bf][\u0080-\u00bf]/g, (c) => {
+    const unicodeString = string.replace(/[\u00e0-\u00ef][\u0080-\u00bf][\u0080-\u00bf]/g, (c) => {
         var cc = ((c.charCodeAt(0) & 0x0f) << 12) | ((c.charCodeAt(1) & 0x3f) << 6) | (c.charCodeAt(2) & 0x3f);
         return String.fromCharCode(cc);
     }).replace(/[\u00c0-\u00df][\u0080-\u00bf]/g, (c) => {
         var cc = (c.charCodeAt(0) & 0x1f) << 6 | c.charCodeAt(1) & 0x3f;
         return String.fromCharCode(cc);
     });
-    return decodeString;
+    return unicodeString;
 }
-console.log(utf8Encode('Confirmação'));
+console.log(uTF8Encode('Confirmação'));
 
-console.error(utf8Encode(uTF8Decode('Confirmação')));
+console.error(uTF8Decode(uTF8Encode('Confirmação')));
